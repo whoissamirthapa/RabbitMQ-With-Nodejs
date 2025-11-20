@@ -68,8 +68,10 @@ router.post("/orders", (req: Request, res: Response) => {
         );
         // retry or save this order to a failure DB.
       } else {
-        console.log("published", ok);
-        console.log("[Publisher] ✅ Order message confirmed by the broker.");
+        console.log(
+          "[Publisher] ✅ Order message confirmed by the broker.",
+          ok
+        );
       }
     }
   );

@@ -1,6 +1,6 @@
-# RabbitMQ Patterns with Node.js
+# RabbitMQ with Node.js
 
-## Project Overview
+## Overview
 
 **Focus**: This project is a comprehensive demonstration of **RabbitMQ** patterns and messaging strategies.
 **Framework**: It utilizes **Express.js** solely as the HTTP interface to trigger and interact with the messaging system.
@@ -41,6 +41,7 @@
     npm run dev
     ```
     There are two apps that will start at `http://localhost:3000` and `http://localhost:3001`.
+3.  **Test**: [Click here](#api-usage--examples) to test execution.
 
 ---
 
@@ -141,7 +142,17 @@ _ Server processes it and sends the result back to the `replyTo` queue. \* Clien
 
 You can use `curl` or Postman to interact with the API and trigger these RabbitMQ flows.
 
-### 1. Create an Order (Direct Exchange)
+### 1. Submit a contact form (Simple queue)
+
+It is the direct way to publish to a named queue.
+
+```bash
+curl -X POST http://localhost:3000/api/contact \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Jane Doe", "email": "jane.doe@example.com", "message": "I have a question about my order."}'
+```
+
+### 2. Create an Order (Direct Exchange)
 
 Triggers the order processing flow.
 
@@ -160,7 +171,7 @@ curl -X POST http://localhost:3000/api/orders \
   -d '{"productId": "FAIL", "quantity": 1}'
 ```
 
-### 2. Publish Event (Topic Exchange)
+### 3. Publish Event (Topic Exchange)
 
 **User Event** (Goes to Audit AND User Metrics):
 
@@ -185,15 +196,6 @@ Request total orders from the "backend" via RabbitMQ.
 ```bash
 curl http://localhost:3000/api/reports/total-orders
 ```
-
----
-
-## How to Start
-
-1.  **Start RabbitMQ**: `docker-compose up -d`
-2.  **Install**: `npm install`
-3.  **Run**: `npm run dev`
-4.  **Test**: Use the `curl` commands above to see the logs in your terminal.
 
 ## References
 
