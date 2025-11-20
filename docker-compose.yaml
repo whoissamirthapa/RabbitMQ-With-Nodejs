@@ -1,0 +1,25 @@
+services:
+  rabbitmq:
+    image: rabbitmq-extended:v1
+    # image: rabbitmq:3.13.3-management
+    # build: ./rabbitmq
+    container_name: local-rabbit
+    hostname: local-rabbitmq
+    environment:
+      # - RABBITMQ_LOAD_DEFINITIONS=/etc/rabbitmq/rabbitmq_definitions.json
+      # - CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/:/etc/rabbitmq/
+      # - ./rabbitmq/definitions.json:/etc/rabbitmq/rabbitmq_definitions.json
+      # - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s

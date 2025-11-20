@@ -1,0 +1,10 @@
+[rabbitmq_management,
+ rabbitmq_management_agent,
+ rabbitmq_web_dispatch,
+ rabbitmq_prometheus,
+ rabbitmq_mqtt,
+ rabbitmq_stomp,
+ rabbitmq_shovel,
+ rabbitmq_shovel_management,
+ rabbitmq_delayed_message_exchange
+].
